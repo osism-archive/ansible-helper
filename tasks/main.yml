@@ -1,0 +1,33 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+- name: Include distribution specific variables
+  include_vars: "vars/{{ ansible_os_family }}.yml"
+
+- name: Upgrade pip
+  pip:
+    name: pip
+    state: latest
+  become: true
+
+- name: Install required python packages
+  shell: |
+    pip install '{{ item }}'
+  args:
+    executable: /bin/bash
+  with_items:
+    - docker-compose
+  become: true
+
+# NOTE: Dependency conflict: an older version of the 'docker-py' package may be polluting the namespace. If you're experiencing crashes, run the following command to remedy the issue
+- name: Fix docker-py/docker naming issues
+  shell: pip uninstall --yes docker-py; pip uninstall --yes docker; pip install docker
+  become: true
+
+- name: Include ara-server tasks
+  include: ara-server.yml
+  tags: ara-server
+
+- name: Include phpmyadmin tasks
+  include: phpmyadmin.yml
+  tags: phpmyadmin

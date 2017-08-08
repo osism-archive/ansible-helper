@@ -1,0 +1,33 @@
+---
+##########################
+# ara
+
+ara_server_host: "{{ ansible_default_ipv4.address }}"
+ara_server_port: 9191
+
+ara_configuration_directory: /opt/ara-configuration
+
+ara_server_version: 0.14.0
+ara_server_docker_image: "osism/ara-server:{{ ara_server_version }}"
+
+# mariadb (used by ara)
+
+ara_server_mariadb_host: "{{ ansible_default_ipv4.address }}"
+ara_server_mariadb_port: 3306
+
+ara_server_mariadb_username: ara
+ara_server_mariadb_password: password
+ara_server_mariadb_databasename: "{{ ara_server_mariadb_username }}"
+
+mariadb_version: 10.3.0
+mariadb_docker_image: "mariadb:{{ mariadb_version }}"
+
+##########################
+# phpmyadmin
+
+phpmyadmin_host: "{{ ansible_default_ipv4.address }}"
+phpmyadmin_database_host: 127.0.0.1
+phpmyadmin_port: 8080
+
+phpmyadmin_version: 4.7
+phpmyadmin_docker_image: "phpmyadmin/phpmyadmin:{{ phpmyadmin_version }}"

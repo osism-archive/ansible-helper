@@ -1,0 +1,42 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+- name: Install python version 2 on ubuntu
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Install python version 2 on ubuntu
+    raw: test -e /usr/bin/python || (test -e /usr/bin/apt && (apt -y update && apt install -y python-minimal))
+    register: result
+    changed_when: result.rc != 0
+    become: true
+
+- hosts: all
+
+  pre_tasks:
+  - name: Include molecule variables
+    include_vars: ../vars/molecule.yml
+
+  - name: Add epel repository
+    yum_repository:
+      name: epel
+      description: EPEL
+      baseurl: "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
+      gpgkey: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7"
+    become: true
+    when: ansible_os_family == 'RedHat'
+
+  roles:
+  - role: osism.docker
+
+- name: Playbook for role testing
+  hosts: all
+  connection: paramiko
+
+  pre_tasks:
+  - name: Include vagrant variables
+    include_vars: vars/vagrant.yml
+
+  roles:
+  - role: ../../ansible-helper

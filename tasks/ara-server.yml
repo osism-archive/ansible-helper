@@ -1,0 +1,57 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+- name: Create ara directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ operator_user }}"
+    group: "{{ operator_user }}"
+    mode: 0750
+  become: true
+  with_items:
+    - "{{ ara_configuration_directory }}"
+
+- name: Copy ara configuration
+  copy:
+    src: ara.cfg
+    dest: "{{ ara_configuration_directory }}/ara.cfg"
+    mode: 0640
+    owner: "{{ operator_user }}"
+    group: "{{ operator_user }}"
+
+- name: Run ara-server service
+  docker_service:
+    project_name: ara-server
+    definition:
+      version: '2'
+      services:
+        ara-server:
+          restart: unless-stopped
+          image: "{{ ara_server_docker_image }}"
+          environment:
+            ARA_CONFIG: /ara.cfg
+            ARA_DATABASE: "mysql+pymysql://{{ ara_server_mariadb_username }}:{{ ara_server_mariadb_password }}@database/{{ ara_server_mariadb_databasename }}"
+          volumes:
+            - "{{ ara_configuration_directory }}/ara.cfg:/ara.cfg"
+            - "/etc/hosts:/etc/hosts:ro"
+          ports:
+            - "{{ ara_server_host }}:{{ ara_server_port }}:9191"
+          depends_on:
+            - database
+          links:
+            - database
+        database:
+          restart: unless-stopped
+          image: "{{ mariadb_docker_image }}"
+          environment:
+            MYSQL_DATABASE: "{{ ara_server_mariadb_databasename }}"
+            MYSQL_PASSWORD: "{{ ara_server_mariadb_password }}"
+            MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+            MYSQL_USER: "{{ ara_server_mariadb_username }}"
+          volumes:
+            - "mariadb_data:/var/lib/mysql"
+          ports:
+            - "{{ ara_server_mariadb_host }}:{{ ara_server_mariadb_port }}:3306"
+      volumes:
+        mariadb_data:
