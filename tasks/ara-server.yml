@@ -1,7 +1,7 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
-- name: Create ara directories
+- name: Create required directories
   file:
     path: "{{ item }}"
     state: directory
@@ -10,17 +10,20 @@
     mode: 0750
   become: true
   with_items:
-    - "{{ ara_configuration_directory }}"
+    - "{{ ara_server_configuration_directory }}"
 
-- name: Copy ara configuration
-  copy:
-    src: ara.cfg
-    dest: "{{ ara_configuration_directory }}/ara.cfg"
+- name: Copy configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     mode: 0640
     owner: "{{ operator_user }}"
     group: "{{ operator_user }}"
+  with_items:
+    - src: ara-server/ara.cfg.j2
+      dest: "{{ ara_server_configuration_directory }}/ara.conf"
 
-- name: Run ara-server service
+- name: Run service
   docker_service:
     project_name: ara-server
     definition:
@@ -33,7 +36,7 @@
             ARA_CONFIG: /ara.cfg
             ARA_DATABASE: "mysql+pymysql://{{ ara_server_mariadb_username }}:{{ ara_server_mariadb_password }}@database/{{ ara_server_mariadb_databasename }}"
           volumes:
-            - "{{ ara_configuration_directory }}/ara.cfg:/ara.cfg"
+            - "{{ ara_server_configuration_directory }}/ara.cfg:/ara.cfg"
             - "/etc/hosts:/etc/hosts:ro"
           ports:
             - "{{ ara_server_host }}:{{ ara_server_port }}:9191"

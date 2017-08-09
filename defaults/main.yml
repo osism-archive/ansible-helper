@@ -1,11 +1,15 @@
 ---
+configure_aptly: no
+configure_ara_server: yes
+configure_phpmyadmin: no
+
 ##########################
 # ara
 
 ara_server_host: "{{ ansible_default_ipv4.address }}"
 ara_server_port: 9191
 
-ara_configuration_directory: /opt/ara-configuration
+ara_server_configuration_directory: /opt/ara-configuration
 
 ara_server_version: 0.14.0
 ara_server_docker_image: "osism/ara-server:{{ ara_server_version }}"
@@ -21,6 +25,27 @@ ara_server_mariadb_databasename: "{{ ara_server_mariadb_username }}"
 
 mariadb_version: 10.3.0
 mariadb_docker_image: "mariadb:{{ mariadb_version }}"
+
+##########################
+# aptly
+
+aptly_configuration_directory: /opt/aptly/configuration
+aptly_database_directory: /opt/aptly/database
+aptly_storage_directory: /opt/aptly/storage
+
+aptly_configuration:
+  full_name: Betacloud Solutions GmbH
+  email_address: info@osism.io
+  gpg_password: password
+
+aptly_nginx_host: "{{ ansible_default_ipv4.address }}"
+aptly_nginx_port: 8080
+
+aptly_version: 1.0.1
+aptly_docker_image: "osism/aptly:{{ aptly_version }}"
+
+aptly_nginx_version: 1.13
+aptly_nginx_docker_image: "nginx:{{ aptly_nginx_version }}"
 
 ##########################
 # phpmyadmin

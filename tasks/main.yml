@@ -4,6 +4,12 @@
 - name: Include distribution specific variables
   include_vars: "vars/{{ ansible_os_family }}.yml"
 
+- name: Install pip package
+  package:
+    name: python-pip
+    state: present
+  become: true
+
 - name: Upgrade pip
   pip:
     name: pip
@@ -27,7 +33,14 @@
 - name: Include ara-server tasks
   include: ara-server.yml
   tags: ara-server
+  when: configure_ara_server|bool
 
 - name: Include phpmyadmin tasks
   include: phpmyadmin.yml
   tags: phpmyadmin
+  when: configure_phpmyadmin|bool
+
+- name: Include aptly tasks
+  include: aptly.yml
+  tags: aptly
+  when: configure_aptly|bool
