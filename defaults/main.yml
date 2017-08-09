@@ -1,7 +1,15 @@
 ---
 configure_aptly: no
 configure_ara_server: yes
+configure_registry: no
 configure_phpmyadmin: no
+
+##########################
+# packages
+
+required_packages_helper:
+  - docker-compose
+  - python-docker
 
 ##########################
 # ara
@@ -56,3 +64,18 @@ phpmyadmin_port: 8080
 
 phpmyadmin_version: 4.7
 phpmyadmin_docker_image: "phpmyadmin/phpmyadmin:{{ phpmyadmin_version }}"
+
+##########################
+# registry
+
+registry_host: "{{ ansible_default_ipv4.address }}"
+registry_port: 5000
+
+registry_storage_directory: /opt/registry/storage
+registry_configuration_directory: /opt/registry/configuration
+
+registry_configuration:
+  secret: supersecretsecret
+
+registry_version: 2.6.2
+registry_docker_image: "registry:{{ registry_version }}"
