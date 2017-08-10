@@ -12,6 +12,11 @@ required_packages_helper:
   - python-docker
 
 ##########################
+# docker
+
+docker_registry: index.docker.io
+
+##########################
 # ara
 
 ara_server_host: "{{ ansible_default_ipv4.address }}"
@@ -20,7 +25,7 @@ ara_server_port: 9191
 ara_server_configuration_directory: /opt/ara-configuration
 
 ara_server_version: 0.14.0
-ara_server_docker_image: "osism/ara-server:{{ ara_server_version }}"
+ara_server_docker_image: "{{ docker_registry }}/osism/ara-server:{{ ara_server_version }}"
 
 # mariadb (used by ara)
 
@@ -32,7 +37,7 @@ ara_server_mariadb_password: password
 ara_server_mariadb_databasename: "{{ ara_server_mariadb_username }}"
 
 mariadb_version: 10.3.0
-mariadb_docker_image: "mariadb:{{ mariadb_version }}"
+mariadb_docker_image: "{{ docker_registry }}/mariadb:{{ mariadb_version }}"
 
 ##########################
 # aptly
@@ -50,10 +55,10 @@ aptly_nginx_host: "{{ ansible_default_ipv4.address }}"
 aptly_nginx_port: 8080
 
 aptly_version: 1.0.1
-aptly_docker_image: "osism/aptly:{{ aptly_version }}"
+aptly_docker_image: "{{ docker_registry }}/osism/aptly:{{ aptly_version }}"
 
 aptly_nginx_version: 1.13
-aptly_nginx_docker_image: "nginx:{{ aptly_nginx_version }}"
+aptly_nginx_docker_image: "{{ docker_registry }}/nginx:{{ aptly_nginx_version }}"
 
 ##########################
 # phpmyadmin
@@ -63,7 +68,7 @@ phpmyadmin_database_host: 127.0.0.1
 phpmyadmin_port: 8080
 
 phpmyadmin_version: 4.7
-phpmyadmin_docker_image: "phpmyadmin/phpmyadmin:{{ phpmyadmin_version }}"
+phpmyadmin_docker_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_version }}"
 
 ##########################
 # registry
@@ -78,4 +83,4 @@ registry_configuration:
   secret: supersecretsecret
 
 registry_version: 2.6.2
-registry_docker_image: "registry:{{ registry_version }}"
+registry_docker_image: "{{ docker_registry }}/registry:{{ registry_version }}"
