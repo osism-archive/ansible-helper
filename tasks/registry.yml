@@ -36,3 +36,5 @@
           volumes:
             - "{{ registry_configuration_directory }}:/etc/docker/registry"
             - "{{ registry_storage_directory }}:/var/lib/registry"
+          ports:
+            - "{{ registry_host }}:{{ registry_port }}:5000"
