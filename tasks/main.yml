@@ -1,9 +1,6 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
-- name: Include distribution specific variables
-  include_vars: "vars/{{ ansible_os_family }}.yml"
-
 - name: Install required packages
   package:
     name: "{{ item }}"
@@ -15,6 +12,11 @@
   include: ara-server.yml
   tags: ara-server
   when: configure_ara_server|bool
+
+- name: Include helper tasks
+  include: helper.yml
+  tags: helper 
+  when: configure_helper|bool
 
 - name: Include phpmyadmin tasks
   include: phpmyadmin.yml

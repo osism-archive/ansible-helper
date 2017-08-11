@@ -14,29 +14,12 @@
 
 - hosts: all
 
-  pre_tasks:
-  - name: Include molecule variables
-    include_vars: ../vars/molecule.yml
-
-  - name: Add epel repository
-    yum_repository:
-      name: epel
-      description: EPEL
-      baseurl: "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
-      gpgkey: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7"
-    become: true
-    when: ansible_os_family == 'RedHat'
-
   roles:
   - role: osism.docker
 
 - name: Playbook for role testing
   hosts: all
   connection: paramiko
-
-  pre_tasks:
-  - name: Include vagrant variables
-    include_vars: vars/vagrant.yml
 
   roles:
   - role: ../../ansible-helper

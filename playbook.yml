@@ -13,28 +13,18 @@
 
 - hosts: all
 
-  pre_tasks:
-  - name: Add epel repository
-    yum_repository:
-      name: epel
-      description: EPEL
-      baseurl: "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
-      gpgkey: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7"
-    become: true
-    when: ansible_os_family == 'RedHat'
-
-  - name: Include molecule variables
-    include_vars: vars/molecule.yml
-
   roles:
   - role: osism.docker
 
 - name: Playbook for role testing
   hosts: all
 
-  pre_tasks:
-  - name: Include molecule variables
-    include_vars: vars/molecule.yml
+  vars:
+    configure_aptly: no
+    configure_ara_server: yes
+    configure_helper: yes
+    configure_registry: no
+    configure_phpmyadmin: no
 
   roles:
   - role: ansible-helper
