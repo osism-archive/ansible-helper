@@ -11,8 +11,6 @@ Dependencies
 Included services
 -----------------
 
-* Aptly
-* Docker registry
 * phpMyAdmin
 
 License

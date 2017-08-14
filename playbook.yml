@@ -11,7 +11,8 @@
     changed_when: result.rc != 0
     become: true
 
-- hosts: all
+- name: Playbook for preparations
+  hosts: all
 
   roles:
   - role: osism.docker
@@ -20,8 +21,6 @@
   hosts: all
 
   vars:
-    configure_aptly: no
-    configure_registry: no
     configure_phpmyadmin: no
 
   roles:

@@ -12,7 +12,8 @@
     changed_when: result.rc != 0
     become: true
 
-- hosts: all
+- name: Playbook for preparations
+  hosts: all
 
   roles:
   - role: osism.docker
