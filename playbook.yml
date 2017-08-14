@@ -21,8 +21,6 @@
 
   vars:
     configure_aptly: no
-    configure_ara_server: yes
-    configure_helper: yes
     configure_registry: no
     configure_phpmyadmin: no
 

@@ -13,7 +13,6 @@ Included services
 
 * Aptly
 * Docker registry
-* OSISM Ansible helper
 * phpMyAdmin
 
 License

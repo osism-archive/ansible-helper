@@ -8,16 +8,6 @@
   become: true
   with_items: "{{ required_packages_helper }}"
 
-- name: Include ara-server tasks
-  include: ara-server.yml
-  tags: ara-server
-  when: configure_ara_server|bool
-
-- name: Include helper tasks
-  include: helper.yml
-  tags: helper 
-  when: configure_helper|bool
-
 - name: Include phpmyadmin tasks
   include: phpmyadmin.yml
   tags: phpmyadmin
