@@ -16,8 +16,7 @@ node {
     stage('Test 2.2') {
       configFileProvider([configFile(fileId: env.OPENRCFILEID, variable: 'OPENRCFILE'),
                           configFile(fileId: env.DOCKERFILEID, variable: 'DOCKERFILE'),
-                          configFile(fileId: env.MOLECULEVARSFILEID, variable: 'MOLECULEVARSFILE'),
-                          configFile(fileId: env.NEXUSFILEID, variable: 'NEXUSFILE')]) {
+                          configFile(fileId: env.MOLECULEVARSFILEID, variable: 'MOLECULEVARSFILE')]) {
         withEnv(["ANSIBLEVERSION=22"]) {
           sh 'scripts/test.sh'
         }
@@ -27,17 +26,10 @@ node {
     stage('Test 2.3') {
       configFileProvider([configFile(fileId: env.OPENRCFILEID, variable: 'OPENRCFILE'),
                           configFile(fileId: env.DOCKERFILEID, variable: 'DOCKERFILE'),
-                          configFile(fileId: env.MOLECULEVARSFILEID, variable: 'MOLECULEVARSFILE'),
-                          configFile(fileId: env.NEXUSFILEID, variable: 'NEXUSFILE')]) {
+                          configFile(fileId: env.MOLECULEVARSFILEID, variable: 'MOLECULEVARSFILE')]) {
         withEnv(["ANSIBLEVERSION=23"]) {
           sh 'scripts/test.sh'
         }
-      }
-    }
-
-    stage('Push') {
-      configFileProvider([configFile(fileId: env.NEXUSFILEID, variable: 'NEXUSFILE')]) {
-        sh 'scripts/push.sh'
       }
     }
 
