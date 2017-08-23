@@ -21,7 +21,8 @@
   hosts: all
 
   vars:
-    configure_phpmyadmin: no
+    configure_openstackclient: yes
+    configure_phpmyadmin: yes
 
   roles:
   - role: ansible-helper

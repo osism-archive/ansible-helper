@@ -12,3 +12,8 @@
   include: phpmyadmin.yml
   tags: phpmyadmin
   when: configure_phpmyadmin|bool
+
+- name: Include openstackclient tasks
+  include: openstackclient.yml
+  tags: openstackclient
+  when: configure_openstackclient|bool

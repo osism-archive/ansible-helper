@@ -22,5 +22,9 @@
   hosts: all
   connection: paramiko
 
+  vars:
+    configure_openstackclient: yes
+    configure_phpmyadmin: yes
+
   roles:
   - role: ../../ansible-helper

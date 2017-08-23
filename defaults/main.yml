@@ -1,5 +1,12 @@
 ---
+configure_openstackclient: no
 configure_phpmyadmin: no
+
+##########################
+# operator user
+
+operator_user: "{{ ansible_user }}"
+operator_group: "{{ operator_user }}"
 
 ##########################
 # packages
@@ -12,6 +19,14 @@ required_packages_helper:
 # docker
 
 docker_registry: index.docker.io
+
+##########################
+# openstackclient
+
+openstackclient_directory: /opt/openstackclient
+
+openstackclient_version: ocata
+openstackclient_docker_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_version }}"
 
 ##########################
 # phpmyadmin
