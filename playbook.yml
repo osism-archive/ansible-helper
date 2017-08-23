@@ -23,6 +23,7 @@
   vars:
     configure_openstackclient: yes
     configure_phpmyadmin: yes
+    configure_sshconfig: no
 
   roles:
   - role: ansible-helper
