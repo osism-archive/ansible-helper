@@ -18,7 +18,7 @@
   tags: openstackclient
   when: configure_openstackclient|bool
 
-- name: Include ssh-config tasks
+- name: Include sshconfig tasks
   include: sshconfig.yml
   tags: sshconfig
   when: configure_sshconfig|bool

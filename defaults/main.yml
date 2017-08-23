@@ -7,6 +7,7 @@ configure_phpmyadmin: no
 
 operator_user: "{{ ansible_user }}"
 operator_group: "{{ operator_user }}"
+operator_home: "{{ ansible_env.HOME|default('/home/'+ansible_user_id) }}"
 
 ##########################
 # packages
@@ -37,3 +38,7 @@ phpmyadmin_port: 8080
 
 phpmyadmin_version: 4.7
 phpmyadmin_docker_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_version }}"
+
+##########################
+# sshconfig
+ssh_config_order: 20
