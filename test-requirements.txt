@@ -1,2 +1,4 @@
+ansible-lint
 molecule>=1.23.3
 shade
+tox
