@@ -11,6 +11,8 @@ Dependencies
 Included services
 -----------------
 
+* OpenStack client
+* Rally
 * phpMyAdmin
 
 License

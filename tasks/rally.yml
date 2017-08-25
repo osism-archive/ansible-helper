@@ -1,0 +1,66 @@
+---
+- name: Create required directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0755
+  become: true
+  with_items:
+    - "{{ rally_configuration_directory }}"
+    - "{{ rally_results_directory }}"
+    - "{{ rally_tests_directory }}"
+
+- name: Copy configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+  with_items:
+    - src: rally/rally.conf.j2
+      dest: "{{ rally_configuration_directory }}/rally.conf"
+    - src: rally/nginx.conf.j2
+      dest: "{{ rally_configuration_directory }}/nginx.conf"
+
+- name: Run service rally
+  docker_service:
+    project_name: rally
+    definition:
+      version: '2'
+      services:
+        rally:
+          restart: unless-stopped
+          image: "{{ rally_docker_image }}"
+          command: sleep infinity
+          volumes:
+            - "{{ rally_configuration_directory }}/rally.conf:/etc/rally/rally.conf:ro"
+            - "{{ rally_tests_directory }}:/tests:ro"
+            - "{{ rally_results_directory }}:/results"
+            - "/etc/hosts:/etc/hosts:ro"
+          depends_on:
+            - database
+          links:
+            - database
+        nginx:
+          restart: unless-stopped
+          image: "{{ nginx_docker_image }}"
+          volumes:
+            - "{{ rally_configuration_directory }}/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
+            - "{{ rally_results_directory }}:/results:ro"
+          ports:
+            - "{{ rally_nginx_host }}:{{ rally_nginx_port }}:80"
+        database:
+          restart: unless-stopped
+          image: "{{ mariadb_docker_image }}"
+          environment:
+            MYSQL_DATABASE: "{{ rally_database_name }}"
+            MYSQL_PASSWORD: "{{ rally_database_password }}"
+            MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+            MYSQL_USER: "{{ rally_database_username }}"
+          volumes:
+            - "mariadb:/var/lib/mysql"
+      volumes:
+        mariadb:

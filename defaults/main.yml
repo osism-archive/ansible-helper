@@ -1,6 +1,7 @@
 ---
 configure_openstackclient: no
 configure_phpmyadmin: no
+configure_rally: no
 
 ##########################
 # operator user
@@ -37,3 +38,26 @@ phpmyadmin_port: 8080
 
 phpmyadmin_version: 4.7
 phpmyadmin_docker_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_version }}"
+
+##########################
+# rally
+
+rally_configuration_directory: /opt/rally/configuration
+rally_tests_directory: /opt/rally/tests
+rally_results_directory: /opt/rally/results
+
+rally_database_username: rally
+rally_database_password: password
+rally_database_name: "{{ rally_database_username }}"
+
+rally_nginx_host: "{{ ansible_default_ipv4.address }}"
+rally_nginx_port: 8090
+
+rally_version: 0.9
+rally_docker_image: "{{ docker_registry }}/osism/rally:{{ rally_version }}"
+
+mariadb_version: 10.3.0
+mariadb_docker_image: "{{ docker_registry }}/mariadb:{{ mariadb_version }}"
+
+nginx_version: 1.13
+nginx_docker_image: "{{ docker_registry }}/nginx:{{ nginx_version }}"
