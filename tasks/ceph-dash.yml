@@ -1,18 +1,19 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
-- name: Run service phpmyadmin
+- name: Run service ceph-dash
   docker_service:
-    project_name: phpmyadmin
+    project_name: ceph_dash
     definition:
       version: '2'
       services:
-        phpmyadmin:
+        ceph_dash:
           restart: unless-stopped
-          image: "{{ phpmyadmin_image }}"
+          image: "{{ ceph_dash_image }}"
           environment:
-            PMA_HOST: "{{ phpmyadmin_database_host }}"
+            CEPHMONS: "{{ ceph_dash_mons|join(',') }}"
+            KEYRING: "{{ ceph_dash_keyring }}"
           ports:
-            - "{{ phpmyadmin_host }}:{{ phpmyadmin_port }}:80"
+            - "{{ ceph_dash_host }}:{{ ceph_dash_port }}:5000"
           volumes:
             - "/etc/hosts:/etc/hosts:ro"

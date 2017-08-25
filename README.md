@@ -11,6 +11,7 @@ Dependencies
 Included services
 -----------------
 
+* ceph-dash
 * OpenStack client
 * Rally
 * phpMyAdmin

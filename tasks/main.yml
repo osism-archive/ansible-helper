@@ -6,6 +6,11 @@
   become: true
   with_items: "{{ required_packages_helper }}"
 
+- name: Include ceph-dash tasks
+  include: ceph-dash.yml
+  tags: ceph-dash
+  when: configure_ceph_dash|bool
+
 - name: Include phpmyadmin tasks
   include: phpmyadmin.yml
   tags: phpmyadmin

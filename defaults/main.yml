@@ -1,4 +1,5 @@
 ---
+configure_ceph_dash: no
 configure_openstackclient: no
 configure_phpmyadmin: no
 configure_rally: no
@@ -22,12 +23,24 @@ required_packages_helper:
 docker_registry: index.docker.io
 
 ##########################
+# ceph-dash
+
+ceph_dash_host: "{{ ansible_default_ipv4.address }}"
+ceph_dash_port: 8100
+
+ceph_dash_tag: 1.2
+ceph_dash_image: "{{ docker_registry }}/osism/ceph-dash:{{ ceph_dash_tag }}"
+
+ceph_dash_mons: []
+ceph_dash_keyring: ""
+
+##########################
 # openstackclient
 
 openstackclient_directory: /opt/openstackclient
 
-openstackclient_version: ocata
-openstackclient_docker_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_version }}"
+openstackclient_tag: ocata
+openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_tag }}"
 
 ##########################
 # phpmyadmin
@@ -36,8 +49,8 @@ phpmyadmin_host: "{{ ansible_default_ipv4.address }}"
 phpmyadmin_database_host: 127.0.0.1
 phpmyadmin_port: 8080
 
-phpmyadmin_version: 4.7
-phpmyadmin_docker_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_version }}"
+phpmyadmin_tag: 4.7
+phpmyadmin_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_tag }}"
 
 ##########################
 # rally
@@ -53,11 +66,11 @@ rally_database_name: "{{ rally_database_username }}"
 rally_nginx_host: "{{ ansible_default_ipv4.address }}"
 rally_nginx_port: 8090
 
-rally_version: 0.9
-rally_docker_image: "{{ docker_registry }}/osism/rally:{{ rally_version }}"
+rally_tag: 0.9
+rally_image: "{{ docker_registry }}/osism/rally:{{ rally_tag }}"
 
-mariadb_version: 10.3.0
-mariadb_docker_image: "{{ docker_registry }}/mariadb:{{ mariadb_version }}"
+mariadb_tag: 10.3.0
+mariadb_image: "{{ docker_registry }}/mariadb:{{ mariadb_tag }}"
 
-nginx_version: 1.13
-nginx_docker_image: "{{ docker_registry }}/nginx:{{ nginx_version }}"
+nginx_tag: 1.13
+nginx_image: "{{ docker_registry }}/nginx:{{ nginx_tag }}"

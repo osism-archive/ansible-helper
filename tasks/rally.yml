@@ -33,7 +33,7 @@
       services:
         rally:
           restart: unless-stopped
-          image: "{{ rally_docker_image }}"
+          image: "{{ rally_image }}"
           command: sleep infinity
           volumes:
             - "{{ rally_configuration_directory }}/rally.conf:/etc/rally/rally.conf:ro"
@@ -46,7 +46,7 @@
             - database
         nginx:
           restart: unless-stopped
-          image: "{{ nginx_docker_image }}"
+          image: "{{ nginx_image }}"
           volumes:
             - "{{ rally_configuration_directory }}/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
             - "{{ rally_results_directory }}:/results:ro"
@@ -54,7 +54,7 @@
             - "{{ rally_nginx_host }}:{{ rally_nginx_port }}:80"
         database:
           restart: unless-stopped
-          image: "{{ mariadb_docker_image }}"
+          image: "{{ mariadb_image }}"
           environment:
             MYSQL_DATABASE: "{{ rally_database_name }}"
             MYSQL_PASSWORD: "{{ rally_database_password }}"

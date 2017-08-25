@@ -18,7 +18,7 @@
       services:
         openstackclient:
           restart: unless-stopped
-          image: "{{ openstackclient_docker_image }}"
+          image: "{{ openstackclient_image }}"
           entrypoint: sleep infinity
           volumes:
             - "{{ openstackclient_directory }}:/configuration:ro"

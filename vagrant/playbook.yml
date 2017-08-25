@@ -23,6 +23,7 @@
   connection: paramiko
 
   vars:
+    configure_ceph_dash: yes
     configure_openstackclient: yes
     configure_phpmyadmin: yes
     configure_rally: yes
