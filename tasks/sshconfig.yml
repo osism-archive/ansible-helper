@@ -1,0 +1,11 @@
+---
+- name: Ensure .ssh/config.d exist
+  file: path={{operator_home}}/.ssh/config.d state=directory owner="{{operator_user}}" group="{{operator_group}}" mode=700
+
+- name: Ensure config for each host of the inventory exist
+  template: src=inventory.j2 dest={{operator_home}}/.ssh/config.d/{{ssh_config_order}}-{{hostvars[item].inventory_hostname_short}}
+  when: item != 'localhost' and item != '127.0.0.1'
+  with_items: "{{ groups.all }}"
+               
+- name: Assemble ssh config
+  assemble: src={{operator_home}}/.ssh/config.d dest={{operator_home}}/.ssh/config
