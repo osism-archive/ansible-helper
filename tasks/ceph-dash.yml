@@ -13,6 +13,7 @@
           environment:
             CEPHMONS: "{{ ceph_dash_mons|join(',') }}"
             KEYRING: "{{ ceph_dash_keyring }}"
+            NAME: "{{ ceph_dash_keyring_name }}"
           ports:
             - "{{ ceph_dash_host }}:{{ ceph_dash_port }}:5000"
           volumes:

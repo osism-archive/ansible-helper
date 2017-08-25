@@ -33,6 +33,7 @@ ceph_dash_image: "{{ docker_registry }}/osism/ceph-dash:{{ ceph_dash_tag }}"
 
 ceph_dash_mons: []
 ceph_dash_keyring: ""
+ceph_dash_keyring_name: client.admin
 
 ##########################
 # openstackclient
@@ -47,7 +48,7 @@ openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstack
 
 phpmyadmin_host: "{{ ansible_default_ipv4.address }}"
 phpmyadmin_database_host: 127.0.0.1
-phpmyadmin_port: 8080
+phpmyadmin_port: 8110
 
 phpmyadmin_tag: 4.7
 phpmyadmin_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_tag }}"
