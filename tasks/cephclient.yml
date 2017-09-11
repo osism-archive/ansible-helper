@@ -1,0 +1,44 @@
+---
+- name: Create required directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0750
+  become: true
+  with_items:
+    - "{{ cephclient_configuration_directory }}"
+
+- name: Copy configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0640
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+  with_items:
+    - src: cephclient/ceph.conf.j2
+      dest: "{{ cephclient_configuration_directory }}/ceph.conf"
+
+- name: Copy keyring file
+  copy:
+    content: "{{ cephclient_keyring }}"
+    dest: "{{ cephclient_configuration_directory }}/ceph.{{ cephclient_keyring_name }}.keyring"
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0640
+
+- name: Run service cephclient
+  docker_service:
+    project_name: cephclient
+    definition:
+      version: '2'
+      services:
+        cephclient:
+          restart: unless-stopped
+          image: "{{ cephclient_image }}"
+          entrypoint: sleep infinity
+          volumes:
+            - "{{ cephclient_configuration_directory }}:/etc/ceph:ro"
+            - "/etc/hosts:/etc/hosts:ro"

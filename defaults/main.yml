@@ -1,4 +1,5 @@
 ---
+configure_cephclient: no
 configure_ceph_dash: no
 configure_openstackclient: no
 configure_phpmyadmin: no
@@ -21,6 +22,18 @@ required_packages_helper:
 # docker
 
 docker_registry: index.docker.io
+
+##########################
+# cephclient
+
+cephclient_configuration_directory: /opt/cephclient/configuration
+
+cephclient_tag: kraken
+cephclient_image: "{{ docker_registry }}/osism/cephclient:{{ cephclient_tag }}"
+
+cephclient_mons: []
+cephclient_keyring: ""
+cephclient_keyring_name: client.admin
 
 ##########################
 # ceph-dash
