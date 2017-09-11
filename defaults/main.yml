@@ -35,6 +35,8 @@ cephclient_mons: []
 cephclient_keyring: ""
 cephclient_keyring_name: client.admin
 
+cephclient_container_name: cephclient_cephclient_1
+
 ##########################
 # ceph-dash
 
@@ -55,6 +57,8 @@ openstackclient_directory: /opt/openstackclient
 
 openstackclient_tag: pike
 openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_tag }}"
+
+openstackclient_container_name: openstackclient_openstackclient_1
 
 ##########################
 # phpmyadmin

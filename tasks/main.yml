@@ -30,3 +30,7 @@
   include: rally.yml
   tags: rally
   when: configure_rally|bool
+
+- name: Include wrapper tasks
+  include: wrapper.yml
+  tags: wrapper
