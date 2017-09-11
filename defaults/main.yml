@@ -40,7 +40,7 @@ ceph_dash_keyring_name: client.admin
 
 openstackclient_directory: /opt/openstackclient
 
-openstackclient_tag: ocata
+openstackclient_tag: pike
 openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_tag }}"
 
 ##########################
