@@ -9,5 +9,7 @@
   with_items:
     - src: wrapper/ceph.j2
       dest: "/usr/local/bin/ceph"
+    - src: wrapper/rbd.j2
+      dest: "/usr/local/bin/rbd"
     - src: wrapper/openstack.j2
       dest: "/usr/local/bin/openstack"
