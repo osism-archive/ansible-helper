@@ -6,31 +6,31 @@
   become: true
   with_items: "{{ required_packages_helper }}"
 
-- name: Include cephclient tasks
+- name: cephclient - include tasks
   include: cephclient.yml
   tags: cephclient
   when: configure_cephclient|bool
 
-- name: Include ceph-dash tasks
+- name: ceph-dash - include tasks
   include: ceph-dash.yml
   tags: ceph-dash
   when: configure_ceph_dash|bool
 
-- name: Include phpmyadmin tasks
+- name: phpmyadmin - include tasks
   include: phpmyadmin.yml
   tags: phpmyadmin
   when: configure_phpmyadmin|bool
 
-- name: Include openstackclient tasks
+- name: openstackclient - include tasks
   include: openstackclient.yml
   tags: openstackclient
   when: configure_openstackclient|bool
 
-- name: Include rally tasks
+- name: rally - include tasks
   include: rally.yml
   tags: rally
   when: configure_rally|bool
 
-- name: Include wrapper tasks
+- name: wrapper - include tasks
   include: wrapper.yml
   tags: wrapper

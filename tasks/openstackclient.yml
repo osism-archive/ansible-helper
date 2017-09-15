@@ -1,5 +1,5 @@
 ---
-- name: Create required directories
+- name: openstackclient - create required directories
   file:
     path: "{{ item }}"
     state: directory
@@ -10,7 +10,7 @@
   with_items:
     - "{{ openstackclient_directory }}"
 
-- name: Run service openstackclient
+- name: openstackclient - run service
   docker_service:
     project_name: openstackclient
     definition:

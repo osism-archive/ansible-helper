@@ -1,7 +1,5 @@
-# This file is subject to the terms and conditions defined in file 'LICENSE',
-# which is part of this repository.
 ---
-- name: Run service ceph-dash
+- name: ceph-dash - run service
   docker_service:
     project_name: ceph_dash
     definition:

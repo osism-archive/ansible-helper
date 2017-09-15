@@ -1,5 +1,5 @@
 ---
-- name: Create required directories
+- name: rally - create required directories
   file:
     path: "{{ item }}"
     state: directory
@@ -12,7 +12,7 @@
     - "{{ rally_results_directory }}"
     - "{{ rally_tests_directory }}"
 
-- name: Copy configuration files
+- name: rally - copy configuration files
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -25,7 +25,7 @@
     - src: rally/nginx.conf.j2
       dest: "{{ rally_configuration_directory }}/nginx.conf"
 
-- name: Run service rally
+- name: rally - run service
   docker_service:
     project_name: rally
     definition:

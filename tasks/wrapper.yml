@@ -1,5 +1,5 @@
 ---
-- name: Copy wrapper scripts
+- name: wrapper - copy scripts
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"

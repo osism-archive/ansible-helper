@@ -1,5 +1,5 @@
 ---
-- name: Create required directories
+- name: cephclient - create required directories
   file:
     path: "{{ item }}"
     state: directory
@@ -10,7 +10,7 @@
   with_items:
     - "{{ cephclient_configuration_directory }}"
 
-- name: Copy configuration files
+- name: cephclient - copy configuration files
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -21,7 +21,7 @@
     - src: cephclient/ceph.conf.j2
       dest: "{{ cephclient_configuration_directory }}/ceph.conf"
 
-- name: Copy keyring file
+- name: cephclient - copy keyring file
   copy:
     content: "{{ cephclient_keyring }}"
     dest: "{{ cephclient_configuration_directory }}/ceph.{{ cephclient_keyring_name }}.keyring"
@@ -29,7 +29,7 @@
     group: "{{ operator_group }}"
     mode: 0640
 
-- name: Run service cephclient
+- name: cephclient - run service
   docker_service:
     project_name: cephclient
     definition:
