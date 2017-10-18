@@ -73,6 +73,8 @@ phpmyadmin_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_tag
 ##########################
 # rally
 
+rally_container_name: rally_rally_1
+
 rally_configuration_directory: /opt/rally/configuration
 rally_tests_directory: /opt/rally/tests
 rally_results_directory: /opt/rally/results
