@@ -31,6 +31,10 @@
   tags: rally
   when: configure_rally|bool
 
+- name: sshconfig - include tasks
+  include: sshconfig.yml
+  tags: sshconfig
+
 - name: wrapper - include tasks
   include: wrapper.yml
   tags: wrapper

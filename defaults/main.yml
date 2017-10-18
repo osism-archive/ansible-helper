@@ -1,9 +1,10 @@
 ---
-configure_cephclient: no
 configure_ceph_dash: no
+configure_cephclient: no
 configure_openstackclient: no
 configure_phpmyadmin: no
 configure_rally: no
+configure_sshconfig: no
 
 ##########################
 # operator user
@@ -94,3 +95,13 @@ mariadb_image: "{{ docker_registry }}/mariadb:{{ mariadb_tag }}"
 
 nginx_tag: 1.13
 nginx_image: "{{ docker_registry }}/nginx:{{ nginx_tag }}"
+
+##########################
+# sshconfig
+
+sshconfig_destination: "/home/{{ operator_user }}/.ssh"
+sshconfig_group_name: all
+sshconfig_order: 20
+sshconfig_port: 22
+sshconfig_private_key_file: /opt/ansible/secrets/id_rsa.operator
+sshconfig_user: "{{ operator_user }}"
