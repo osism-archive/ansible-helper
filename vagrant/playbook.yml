@@ -26,15 +26,12 @@
   vars:
     configure_ceph_dash: yes
     configure_cephclient: yes
-    configure_monitoring: yes
     configure_openstackclient: yes
     configure_phpmyadmin: yes
     configure_rally: yes
     configure_sshconfig: yes
     operator_user: ubuntu
     operator_group: ubuntu
-    prometheus_telegraf_group_name: all
-    api_interface: enp0s3
 
   roles:
   - role: ../../ansible-helper

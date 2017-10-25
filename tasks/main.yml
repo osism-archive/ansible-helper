@@ -31,11 +31,6 @@
   tags: rally
   when: configure_rally|bool
 
-- name: monitoring - include tasks
-  include: monitoring.yml
-  tags: monitoring
-  when: configure_monitoring|bool
-
 - name: sshconfig - include tasks
   include: sshconfig.yml
   tags: sshconfig
