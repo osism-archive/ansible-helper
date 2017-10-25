@@ -1,0 +1,72 @@
+---
+- name: monitoring - create required directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0755
+  become: true
+  with_items:
+    - "{{ prometheus_configuration_directory }}"
+    - "{{ grafana_configuration_directory }}"
+    - "{{ grafana_dashboards_directory }}"
+
+- name: monitoring - copy configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+  with_items:
+    - src: grafana/grafana.ini.j2
+      dest: "{{ grafana_configuration_directory }}/grafana.ini"
+    - src: prometheus/prometheus.yml.j2
+      dest: "{{ prometheus_configuration_directory }}/prometheus.yml"
+
+- name: monitoring - run service
+  docker_service:
+    project_name: monitoring
+    definition:
+      version: '2'
+      services:
+        grafana:
+          restart: unless-stopped
+          image: "{{ grafana_image }}"
+          volumes:
+            - "grafana:/var/lib/grafana"
+            - "{{ grafana_configuration_directory }}/grafana.ini:/etc/grafana/grafana.ini"
+            - "{{ grafana_dashboards_directory }}:/var/lib/grafana/dashboards"
+            - "/etc/hosts:/etc/hosts:ro"
+          ports:
+            - "{{ grafana_host }}:{{ grafana_port }}:3000"
+          depends_on:
+            - database
+            - prometheus
+          links:
+            - database
+            - prometheus
+        prometheus:
+          restart: unless-stopped
+          image: "{{ prometheus_image }}"
+          volumes:
+            - "prometheus:/prometheus"
+            - "{{ prometheus_configuration_directory }}/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
+            - "/etc/hosts:/etc/hosts:ro"
+#          ports:
+#            - "{{ prometheus_host }}:{{ prometheus_port }}:9090"
+        database:
+          restart: unless-stopped
+          image: "{{ mariadb_image }}"
+          environment:
+            MYSQL_DATABASE: "{{ grafana_database_name }}"
+            MYSQL_PASSWORD: "{{ grafana_database_password }}"
+            MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+            MYSQL_USER: "{{ grafana_database_username }}"
+          volumes:
+            - "mariadb:/var/lib/mysql"
+      volumes:
+        grafana:
+        mariadb:
+        prometheus:

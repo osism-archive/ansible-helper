@@ -1,12 +1,10 @@
-# This file is subject to the terms and conditions defined in file 'LICENSE',
-# which is part of this repository.
 ---
-- name: Install python version 2 on ubuntu
+- name: Install python2
   hosts: all
   gather_facts: no
 
   tasks:
-  - name: Install python version 2 on ubuntu
+  - name: Install python2
     raw: test -e /usr/bin/python || (test -e /usr/bin/apt && (apt -y update && apt install -y python-minimal))
     register: result
     changed_when: result.rc != 0
@@ -28,12 +26,15 @@
   vars:
     configure_ceph_dash: yes
     configure_cephclient: yes
+    configure_monitoring: yes
     configure_openstackclient: yes
     configure_phpmyadmin: yes
     configure_rally: yes
     configure_sshconfig: yes
     operator_user: ubuntu
     operator_group: ubuntu
+    prometheus_telegraf_group_name: all
+    api_interface: enp0s3
 
   roles:
   - role: ../../ansible-helper

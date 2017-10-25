@@ -1,6 +1,7 @@
 ---
 configure_ceph_dash: no
 configure_cephclient: no
+configure_monitoring: no
 configure_openstackclient: no
 configure_phpmyadmin: no
 configure_rally: no
@@ -105,3 +106,43 @@ sshconfig_order: 20
 sshconfig_port: 22
 sshconfig_private_key_file: /opt/ansible/secrets/id_rsa.operator
 sshconfig_user: "{{ operator_user }}"
+
+##########################
+# monitoring
+
+# grafana
+
+grafana_configuration_directory: /opt/grafana/configuration
+grafana_dashboards_directory: /opt/grafana/dashboards
+
+grafana_host: "{{ ansible_default_ipv4.address }}"
+grafana_port: 3000
+
+grafana_tag: 4.5.2
+grafana_image: "{{ docker_registry }}/grafana/grafana:{{ grafana_tag }}"
+
+grafana_database_username: grafana
+grafana_database_password: password
+grafana_database_name: "{{ grafana_database_username }}"
+
+grafana_admin_user: "{{ operator_user }}"
+grafana_admin_password: password
+grafana_secret_key: secret
+
+# prometheus
+
+prometheus_configuration_directory: /opt/prometheus/configuration
+
+# prometheus_host: "{{ ansible_default_ipv4.address }}"
+# prometheus_port: 9090
+
+prometheus_tag: v1.8.1
+prometheus_image: "{{ docker_registry }}/prom/prometheus:{{ prometheus_tag }}"
+
+prometheus_client_port: 9273
+
+prometheus_telegraf_group_name: telegraf
+
+# NOTE: This is a variable of kolla-ansible and is only defined here to avoid
+#       issues.
+api_interface: eth0
