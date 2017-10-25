@@ -10,15 +10,12 @@
   with_items:
     - "{{ prometheus_configuration_directory }}"
     - "{{ grafana_configuration_directory }}"
-    - "{{ grafana_dashboards_directory }}"
 
 - name: monitoring - copy configuration files
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: 0644
-    owner: "{{ operator_user }}"
-    group: "{{ operator_group }}"
   with_items:
     - src: grafana/grafana.ini.j2
       dest: "{{ grafana_configuration_directory }}/grafana.ini"
@@ -37,7 +34,6 @@
           volumes:
             - "grafana:/var/lib/grafana"
             - "{{ grafana_configuration_directory }}/grafana.ini:/etc/grafana/grafana.ini"
-            - "{{ grafana_dashboards_directory }}:/var/lib/grafana/dashboards"
             - "/etc/hosts:/etc/hosts:ro"
           ports:
             - "{{ grafana_host }}:{{ grafana_port }}:3000"
@@ -70,3 +66,43 @@
         grafana:
         mariadb:
         prometheus:
+
+
+- name: monitoring - check prometheus data source in grafana
+  uri:
+    url: "http://{{ grafana_host }}:{{ grafana_port }}/api/datasources/name/prometheus"
+    user: "{{ grafana_admin_user }}"
+    password: "{{ grafana_admin_password }}"
+    force_basic_auth: yes
+  register: prometheus_ds
+  failed_when: false
+  changed_when: false
+
+- name: monitoring - create prometheus data source in grafana
+  uri:
+    url: "http://{{ grafana_host }}:{{ grafana_port }}/api/datasources"
+    method: POST
+    user: "{{ grafana_admin_user }}"
+    password: "{{ grafana_admin_password }}"
+    body:
+      name: "prometheus"
+      type: "prometheus"
+      url: "http://prometheus:9090"
+      access: "proxy"
+      isDefault: true
+    force_basic_auth: yes
+    status_code: 200
+    body_format: json
+  when: prometheus_ds.status == 404
+
+#- name: monitoring - import grafana dashboards
+#  uri:
+#    url: "http://{{ grafana_host }}:{{ grafana_port }}/api/dashboards/import"
+#    method: POST
+#    user: "{{ grafana_admin_user }}"
+#    password: "{{ grafana_admin_password }}"
+#    body: "{{ lookup('file', item) }}"
+#    force_basic_auth: yes
+#    status_code: 200
+#    body_format: json
+#  with_fileglob: "files/grafana/*.json"
