@@ -24,7 +24,6 @@
   connection: paramiko
 
   vars:
-    configure_ceph_dash: yes
     configure_cephclient: yes
     configure_openstackclient: yes
     configure_phpmyadmin: yes

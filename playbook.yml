@@ -21,10 +21,11 @@
   hosts: all
 
   vars:
-    configure_ceph_dash: yes
+    configure_cephclient: yes
     configure_openstackclient: yes
     configure_phpmyadmin: yes
     configure_rally: yes
+    configure_sshconfig: yes
 
   roles:
   - role: ansible-helper

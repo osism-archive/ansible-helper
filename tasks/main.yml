@@ -11,11 +11,6 @@
   tags: cephclient
   when: configure_cephclient|bool
 
-- name: ceph-dash - include tasks
-  include: ceph-dash.yml
-  tags: ceph-dash
-  when: configure_ceph_dash|bool
-
 - name: phpmyadmin - include tasks
   include: phpmyadmin.yml
   tags: phpmyadmin

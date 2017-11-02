@@ -1,5 +1,4 @@
 ---
-configure_ceph_dash: no
 configure_cephclient: no
 configure_monitoring: no
 configure_openstackclient: no
@@ -38,19 +37,6 @@ cephclient_keyring: ""
 cephclient_keyring_name: client.admin
 
 cephclient_container_name: cephclient_cephclient_1
-
-##########################
-# ceph-dash
-
-ceph_dash_host: "{{ ansible_default_ipv4.address }}"
-ceph_dash_port: 8100
-
-ceph_dash_tag: 1.2
-ceph_dash_image: "{{ docker_registry }}/osism/ceph-dash:{{ ceph_dash_tag }}"
-
-ceph_dash_mons: []
-ceph_dash_keyring: ""
-ceph_dash_keyring_name: client.admin
 
 ##########################
 # openstackclient
