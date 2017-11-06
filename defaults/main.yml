@@ -37,6 +37,7 @@ cephclient_keyring: ""
 cephclient_keyring_name: client.admin
 
 cephclient_container_name: cephclient_cephclient_1
+cephclient_groupname: helper
 
 ##########################
 # openstackclient
@@ -47,6 +48,7 @@ openstackclient_tag: pike
 openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_tag }}"
 
 openstackclient_container_name: openstackclient_openstackclient_1
+openstackclient_groupname: helper
 
 ##########################
 # phpmyadmin
@@ -57,6 +59,8 @@ phpmyadmin_port: 8110
 
 phpmyadmin_tag: 4.7
 phpmyadmin_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_tag }}"
+
+phpmyadmin_groupname: helper
 
 ##########################
 # rally
@@ -83,6 +87,8 @@ mariadb_image: "{{ docker_registry }}/mariadb:{{ mariadb_tag }}"
 nginx_tag: 1.13
 nginx_image: "{{ docker_registry }}/nginx:{{ nginx_tag }}"
 
+rally_groupname: helper
+
 ##########################
 # sshconfig
 
@@ -92,3 +98,5 @@ sshconfig_order: 20
 sshconfig_port: 22
 sshconfig_private_key_file: /opt/ansible/secrets/id_rsa.operator
 sshconfig_user: "{{ operator_user }}"
+
+sshconfig_groupname: helper

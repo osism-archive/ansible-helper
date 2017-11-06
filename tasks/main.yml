@@ -9,26 +9,37 @@
 - name: cephclient - include tasks
   include: cephclient.yml
   tags: cephclient
-  when: configure_cephclient|bool
+  when:
+    - configure_cephclient|bool
+    - cephclient_groupname in groups
 
 - name: phpmyadmin - include tasks
   include: phpmyadmin.yml
   tags: phpmyadmin
-  when: configure_phpmyadmin|bool
+  when:
+    - configure_phpmyadmin|bool
+    - phpmyadmin_groupname in groups
 
 - name: openstackclient - include tasks
   include: openstackclient.yml
   tags: openstackclient
-  when: configure_openstackclient|bool
+  when:
+    - configure_openstackclient|bool
+    - openstackclient_groupname in groups
 
 - name: rally - include tasks
   include: rally.yml
   tags: rally
-  when: configure_rally|bool
+  when:
+    - configure_rally|bool
+    - rally_groupname in groups
 
 - name: sshconfig - include tasks
   include: sshconfig.yml
   tags: sshconfig
+  when:
+    - configure_sshconfig|bool
+    - sshconfig_groupname in groups
 
 - name: wrapper - include tasks
   include: wrapper.yml
