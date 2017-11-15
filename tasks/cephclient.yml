@@ -29,6 +29,13 @@
     group: "{{ operator_group }}"
     mode: 0640
 
+- name: cephclient - pull images
+  docker_image:
+    name: "{{ item }}"
+    pull: yes
+  with_items:
+    - "{{ cephclient_image }}"
+
 - name: cephclient - run service
   docker_service:
     project_name: cephclient

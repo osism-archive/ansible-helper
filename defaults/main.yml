@@ -69,7 +69,6 @@ rally_container_name: rally_rally_1
 
 rally_configuration_directory: /opt/rally/configuration
 rally_tests_directory: /opt/rally/tests
-rally_results_directory: /opt/rally/results
 
 rally_database_username: rally
 rally_database_password: password

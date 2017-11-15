@@ -1,4 +1,11 @@
 ---
+- name: phpmyadmin - pull images
+  docker_image:
+    name: "{{ item }}"
+    pull: yes
+  with_items:
+    - "{{ phpmyadmin_image }}"
+
 - name: phpmyadmin - run service
   docker_service:
     project_name: phpmyadmin

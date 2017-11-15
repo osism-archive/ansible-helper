@@ -10,6 +10,13 @@
   with_items:
     - "{{ openstackclient_directory }}"
 
+- name: openstackclient - pull images
+  docker_image:
+    name: "{{ item }}"
+    pull: yes
+  with_items:
+    - "{{ openstackclient_image }}"
+
 - name: openstackclient - run service
   docker_service:
     project_name: openstackclient

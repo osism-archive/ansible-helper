@@ -9,8 +9,14 @@
   become: true
   with_items:
     - "{{ rally_configuration_directory }}"
-    - "{{ rally_results_directory }}"
     - "{{ rally_tests_directory }}"
+
+- name: rally - pull images
+  docker_image:
+    name: "{{ item }}"
+    pull: yes
+  with_items:
+    - "{{ rally_image }}"
 
 - name: rally - copy configuration files
   template:
@@ -38,7 +44,7 @@
           volumes:
             - "{{ rally_configuration_directory }}/rally.conf:/etc/rally/rally.conf:ro"
             - "{{ rally_tests_directory }}:/tests:ro"
-            - "{{ rally_results_directory }}:/results"
+            - "results:/results"
             - "/etc/hosts:/etc/hosts:ro"
           depends_on:
             - database
@@ -49,7 +55,7 @@
           image: "{{ nginx_image }}"
           volumes:
             - "{{ rally_configuration_directory }}/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
-            - "{{ rally_results_directory }}:/results:ro"
+            - "results:/results:ro"
           ports:
             - "{{ rally_nginx_host }}:{{ rally_nginx_port }}:80"
         database:
@@ -64,3 +70,4 @@
             - "mariadb:/var/lib/mysql"
       volumes:
         mariadb:
+        results:
