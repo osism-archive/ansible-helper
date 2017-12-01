@@ -1,6 +1,5 @@
 ---
 configure_cephclient: no
-configure_monitoring: no
 configure_openstackclient: no
 configure_phpmyadmin: no
 configure_rally: no
