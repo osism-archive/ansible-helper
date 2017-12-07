@@ -52,7 +52,7 @@ openstackclient_groupname: helper
 ##########################
 # phpmyadmin
 
-phpmyadmin_host: "{{ ansible_default_ipv4.address }}"
+phpmyadmin_host: 127.0.0.1
 phpmyadmin_database_host: 127.0.0.1
 phpmyadmin_port: 8110
 
@@ -73,7 +73,7 @@ rally_database_username: rally
 rally_database_password: password
 rally_database_name: "{{ rally_database_username }}"
 
-rally_nginx_host: "{{ ansible_default_ipv4.address }}"
+rally_nginx_host: 127.0.0.1
 rally_nginx_port: 8090
 
 rally_tag: 0.9
