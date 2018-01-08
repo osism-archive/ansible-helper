@@ -71,3 +71,14 @@
       volumes:
         mariadb:
         results:
+
+- name: rally - copy wrapper scripts
+  template:
+    src: "wrapper/{{ item }}.j2"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+  with_items:
+    - rally
+  become: true

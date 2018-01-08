@@ -40,7 +40,3 @@
   when:
     - configure_sshconfig|bool
     - sshconfig_groupname in group_names
-
-- name: wrapper - include tasks
-  include: wrapper.yml
-  tags: wrapper
