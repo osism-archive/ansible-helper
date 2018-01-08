@@ -1,0 +1,10 @@
+---
+version: '2'
+services:
+  openstackclient:
+    restart: unless-stopped
+    image: "{{ openstackclient_image }}"
+    entrypoint: sleep infinity
+    volumes:
+      - "{{ openstackclient_configuration_directory }}:/configuration:ro"
+      - "/etc/hosts:/etc/hosts:ro"

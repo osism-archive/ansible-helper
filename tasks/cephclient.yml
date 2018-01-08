@@ -9,6 +9,7 @@
   become: true
   with_items:
     - "{{ cephclient_configuration_directory }}"
+    - "{{ cephclient_docker_compose_directory }}"
 
 - name: cephclient - copy configuration files
   template:
@@ -29,26 +30,19 @@
     group: "{{ operator_group }}"
     mode: 0640
 
-- name: cephclient - pull images
-  docker_image:
-    name: "{{ item }}"
-    pull: yes
-  with_items:
-    - "{{ cephclient_image }}"
+- name: cephclient - copy docker-compose.yml file
+  template:
+    src: cephclient/docker-compose.yml.j2
+    dest: "{{ cephclient_docker_compose_directory }}/docker-compose.yml"
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0640
 
 - name: cephclient - run service
   docker_service:
     project_name: cephclient
-    definition:
-      version: '2'
-      services:
-        cephclient:
-          restart: unless-stopped
-          image: "{{ cephclient_image }}"
-          entrypoint: sleep infinity
-          volumes:
-            - "{{ cephclient_configuration_directory }}:/etc/ceph:ro"
-            - "/etc/hosts:/etc/hosts:ro"
+    project_src: "{{ cephclient_docker_compose_directory }}"
+    pull: yes
 
 - name: cephclient - copy wrapper scripts
   template:

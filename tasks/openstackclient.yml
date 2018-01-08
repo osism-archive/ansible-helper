@@ -8,28 +8,22 @@
     mode: 0750
   become: true
   with_items:
-    - "{{ openstackclient_directory }}"
+    - "{{ openstackclient_configuration_directory }}"
+    - "{{ openstackclient_docker_compose_directory }}"
 
-- name: openstackclient - pull images
-  docker_image:
-    name: "{{ item }}"
-    pull: yes
-  with_items:
-    - "{{ openstackclient_image }}"
+- name: openstackclient - copy docker-compose.yml file
+  template:
+    src: openstackclient/docker-compose.yml.j2
+    dest: "{{ openstackclient_docker_compose_directory }}/docker-compose.yml"
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0640
 
 - name: openstackclient - run service
   docker_service:
     project_name: openstackclient
-    definition:
-      version: '2'
-      services:
-        openstackclient:
-          restart: unless-stopped
-          image: "{{ openstackclient_image }}"
-          entrypoint: sleep infinity
-          volumes:
-            - "{{ openstackclient_directory }}:/configuration:ro"
-            - "/etc/hosts:/etc/hosts:ro"
+    project_src: "{{ openstackclient_docker_compose_directory }}"
+    pull: yes
 
 - name: openstackclient - copy wrapper scripts
   template:

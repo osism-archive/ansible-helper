@@ -1,23 +1,25 @@
 ---
-- name: phpmyadmin - pull images
-  docker_image:
-    name: "{{ item }}"
-    pull: yes
+- name: phpmyadmin - create required directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0755
+  become: true
   with_items:
-    - "{{ phpmyadmin_image }}"
+    - "{{ phpmyadmin_docker_compose_directory }}"
+
+- name: phpmyadmin - copy docker-compose.yml file
+  template:
+    src: phpmyadmin/docker-compose.yml.j2
+    dest: "{{ phpmyadmin_docker_compose_directory }}/docker-compose.yml"
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0640
 
 - name: phpmyadmin - run service
   docker_service:
     project_name: phpmyadmin
-    definition:
-      version: '2'
-      services:
-        phpmyadmin:
-          restart: unless-stopped
-          image: "{{ phpmyadmin_image }}"
-          environment:
-            PMA_HOST: "{{ phpmyadmin_database_host }}"
-          ports:
-            - "{{ phpmyadmin_host }}:{{ phpmyadmin_port }}:80"
-          volumes:
-            - "/etc/hosts:/etc/hosts:ro"
+    project_src: "{{ phpmyadmin_docker_compose_directory }}"
+    pull: yes

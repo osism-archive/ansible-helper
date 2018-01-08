@@ -1,0 +1,38 @@
+---
+version: '2'
+services:
+  rally:
+    restart: unless-stopped
+    image: "{{ rally_image }}"
+    command: sleep infinity
+    volumes:
+      - "{{ rally_configuration_directory }}/rally.conf:/etc/rally/rally.conf:ro"
+      - "{{ rally_tests_directory }}:/tests:ro"
+      - "results:/results"
+      - "/etc/hosts:/etc/hosts:ro"
+    depends_on:
+      - database
+    links:
+      - database
+  nginx:
+    restart: unless-stopped
+    image: "{{ nginx_image }}"
+    volumes:
+      - "{{ rally_configuration_directory }}/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
+      - "results:/results:ro"
+    ports:
+      - "{{ rally_nginx_host }}:{{ rally_nginx_port }}:80"
+  database:
+    restart: unless-stopped
+    image: "{{ mariadb_image }}"
+    environment:
+      MYSQL_DATABASE: "{{ rally_database_name }}"
+      MYSQL_PASSWORD: "{{ rally_database_password }}"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER: "{{ rally_database_username }}"
+    volumes:
+      - "mariadb:/var/lib/mysql"
+
+volumes:
+  mariadb:
+  results:

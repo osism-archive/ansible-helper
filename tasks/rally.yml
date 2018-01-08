@@ -9,14 +9,8 @@
   become: true
   with_items:
     - "{{ rally_configuration_directory }}"
+    - "{{ rally_docker_compose_directory }}"
     - "{{ rally_tests_directory }}"
-
-- name: rally - pull images
-  docker_image:
-    name: "{{ item }}"
-    pull: yes
-  with_items:
-    - "{{ rally_image }}"
 
 - name: rally - copy configuration files
   template:
@@ -31,46 +25,19 @@
     - src: rally/nginx.conf.j2
       dest: "{{ rally_configuration_directory }}/nginx.conf"
 
+- name: rally - copy docker-compose.yml file
+  template:
+    src: rally/docker-compose.yml.j2
+    dest: "{{ rally_docker_compose_directory }}/docker-compose.yml"
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
+    mode: 0640
+
 - name: rally - run service
   docker_service:
     project_name: rally
-    definition:
-      version: '2'
-      services:
-        rally:
-          restart: unless-stopped
-          image: "{{ rally_image }}"
-          command: sleep infinity
-          volumes:
-            - "{{ rally_configuration_directory }}/rally.conf:/etc/rally/rally.conf:ro"
-            - "{{ rally_tests_directory }}:/tests:ro"
-            - "results:/results"
-            - "/etc/hosts:/etc/hosts:ro"
-          depends_on:
-            - database
-          links:
-            - database
-        nginx:
-          restart: unless-stopped
-          image: "{{ nginx_image }}"
-          volumes:
-            - "{{ rally_configuration_directory }}/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
-            - "results:/results:ro"
-          ports:
-            - "{{ rally_nginx_host }}:{{ rally_nginx_port }}:80"
-        database:
-          restart: unless-stopped
-          image: "{{ mariadb_image }}"
-          environment:
-            MYSQL_DATABASE: "{{ rally_database_name }}"
-            MYSQL_PASSWORD: "{{ rally_database_password }}"
-            MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-            MYSQL_USER: "{{ rally_database_username }}"
-          volumes:
-            - "mariadb:/var/lib/mysql"
-      volumes:
-        mariadb:
-        results:
+    project_src: "{{ rally_docker_compose_directory }}"
+    pull: yes
 
 - name: rally - copy wrapper scripts
   template:
