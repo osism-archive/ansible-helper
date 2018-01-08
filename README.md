@@ -11,10 +11,10 @@ Dependencies
 Included services
 -----------------
 
-* ceph-dash
+* Ceph client
 * OpenStack client
-* Rally
 * phpMyAdmin
+* Rally
 
 License
 -------
