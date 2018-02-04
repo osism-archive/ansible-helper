@@ -1,0 +1,22 @@
+---
+- name: Playbook for role testing
+  hosts: all
+  connection: paramiko
+
+  vars:
+    operator_user: ubuntu
+
+    configure_cephclient: yes
+    configure_openstackclient: yes
+    configure_phpmyadmin: yes
+    configure_rally: yes
+    configure_sshconfig: yes
+
+    cephclient_groupname: all
+    openstackclient_groupname: all
+    phpmyadmin_groupname: all
+    rally_groupname: all
+    sshconfig_groupname: all
+
+  roles:
+    - role: ansible-helper

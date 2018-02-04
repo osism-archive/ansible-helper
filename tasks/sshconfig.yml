@@ -13,7 +13,7 @@
     dest: "{{ sshconfig_destination }}/config.d/{{ sshconfig_order }}-{{ hostvars[item].inventory_hostname_short }}"
   when: item != "localhost" and item != "127.0.0.1"
   with_items: "{{ groups[sshconfig_group_name] }}"
-               
+
 - name: Assemble ssh config
   assemble:
     src: "{{ sshconfig_destination }}/config.d"

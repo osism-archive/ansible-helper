@@ -17,7 +17,7 @@
     docker_user: ubuntu
 
   roles:
-  - role: osism.docker
+    - role: osism.docker
 
 - name: Playbook for role testing
   hosts: all
@@ -33,4 +33,4 @@
     operator_group: ubuntu
 
   roles:
-  - role: ../../ansible-helper
+    - role: ../../ansible-helper
