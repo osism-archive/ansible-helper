@@ -20,10 +20,9 @@
     mode: 0640
 
 - name: openstackclient - run service
-  docker_service:
-    project_name: openstackclient
-    project_src: "{{ openstackclient_docker_compose_directory }}"
-    pull: yes
+  command: "docker-compose -f {{ openstackclient_docker_compose_directory }}/docker-compose.yml -p openstackclient create --no-build"
+  register: result
+  changed_when: ('Creating' in result.stdout or 'Recreating' in result.stdout)
 
 - name: openstackclient - copy wrapper scripts
   template:

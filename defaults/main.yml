@@ -15,7 +15,6 @@ operator_group: "{{ operator_user }}"
 # packages
 
 required_packages_helper:
-  - docker-compose
   - python-docker
 
 ##########################
