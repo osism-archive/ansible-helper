@@ -1,11 +1,4 @@
 ---
-- name: Install required packages
-  package:
-    name: "{{ item }}"
-    state: present
-  become: true
-  with_items: "{{ required_packages_helper }}"
-
 - name: cephclient - include tasks
   include: cephclient.yml
   tags: cephclient

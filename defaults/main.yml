@@ -12,12 +12,6 @@ operator_user: dragon
 operator_group: "{{ operator_user }}"
 
 ##########################
-# packages
-
-required_packages_helper:
-  - python-docker
-
-##########################
 # docker
 
 docker_registry: index.docker.io

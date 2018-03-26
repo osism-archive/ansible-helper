@@ -33,8 +33,13 @@
     group: "{{ operator_group }}"
     mode: 0640
 
+- name: rally - pull images
+  command: "docker-compose -f {{ rally_docker_compose_directory }}/docker-compose.yml pull"
+  register: result
+  changed_when: ('Downloaded' in result.stdout)
+
 - name: rally - run service
-  command: "docker-compose -f {{ rally_docker_compose_directory }}/docker-compose.yml -p rally up -d --no-build"
+  command: "docker-compose -f {{ rally_docker_compose_directory }}/docker-compose.yml up -d --remove-orphans --no-build"
   register: result
   changed_when: ('Creating' in result.stdout or 'Recreating' in result.stdout)
 
