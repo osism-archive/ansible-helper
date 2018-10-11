@@ -38,4 +38,5 @@
     group: "{{ operator_group }}"
   with_items:
     - openstack
+    - ospurge
   become: true
