@@ -1,5 +1,5 @@
 ---
-version: '2'
+version: '3'
 services:
   phpmyadmin:
     restart: unless-stopped
@@ -10,3 +10,5 @@ services:
       - "{{ phpmyadmin_host }}:{{ phpmyadmin_port }}:80"
     volumes:
       - "/etc/hosts:/etc/hosts:ro"
+    healthcheck:
+      test: curl --silent --fail localhost:80
