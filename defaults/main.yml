@@ -22,7 +22,7 @@ docker_registry: index.docker.io
 cephclient_configuration_directory: /opt/cephclient/configuration
 cephclient_docker_compose_directory: /opt/cephclient
 
-cephclient_tag: kraken
+cephclient_tag: luminous
 cephclient_image: "{{ docker_registry }}/osism/cephclient:{{ cephclient_tag }}"
 
 cephclient_mons: []
