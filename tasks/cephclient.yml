@@ -57,5 +57,6 @@
     group: "{{ operator_group }}"
   with_items:
     - ceph
+    - rados
     - rbd
   become: true
