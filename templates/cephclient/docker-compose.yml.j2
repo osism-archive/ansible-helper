@@ -6,5 +6,5 @@ services:
     image: "{{ cephclient_image }}"
     entrypoint: sleep infinity
     volumes:
-      - "{{ cephclient_configuration_directory }}:/etc/ceph:ro"
+      - "{{ cephclient_configuration_directory }}:/etc/ceph:rw"
       - "/etc/hosts:/etc/hosts:ro"
