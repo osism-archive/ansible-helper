@@ -57,6 +57,7 @@
     group: "{{ operator_group }}"
   with_items:
     - ceph
+    - ceph-authtool
     - rados
     - rbd
   become: true
