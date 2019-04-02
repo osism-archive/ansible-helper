@@ -8,3 +8,11 @@ services:
     volumes:
       - "{{ cephclient_configuration_directory }}:/etc/ceph:rw"
       - "/etc/hosts:/etc/hosts:ro"
+
+networks:
+ default:
+   driver: bridge
+   ipam:
+     driver: default
+     config:
+       - subnet:  {{ cephclient_network }}

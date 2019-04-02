@@ -32,6 +32,8 @@ cephclient_keyring_name: client.admin
 cephclient_container_name: cephclient_cephclient_1
 cephclient_groupname: helper
 
+cephclient_network: 172.31.100.0/28
+
 ##########################
 # openstackclient
 
@@ -43,6 +45,8 @@ openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstack
 
 openstackclient_container_name: openstackclient_openstackclient_1
 openstackclient_groupname: helper
+
+openstackclient_network: 172.31.100.16/28
 
 ##########################
 # phpmyadmin
@@ -57,6 +61,8 @@ phpmyadmin_tag: 4.7
 phpmyadmin_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_tag }}"
 
 phpmyadmin_groupname: helper
+
+phpmyadmin_network: 172.31.100.32/28
 
 ##########################
 # rally
@@ -84,6 +90,8 @@ nginx_tag: 1.13
 nginx_image: "{{ docker_registry }}/nginx:{{ nginx_tag }}"
 
 rally_groupname: helper
+
+rally_network: 172.31.100.48/28
 
 ##########################
 # sshconfig

@@ -36,3 +36,11 @@ services:
 volumes:
   mariadb:
   results:
+
+networks:
+ default:
+   driver: bridge
+   ipam:
+     driver: default
+     config:
+       - subnet:  {{ rally_network }}

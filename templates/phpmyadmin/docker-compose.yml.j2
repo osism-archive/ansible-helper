@@ -12,3 +12,11 @@ services:
       - "/etc/hosts:/etc/hosts:ro"
     healthcheck:
       test: curl --silent --fail localhost:80
+
+networks:
+ default:
+   driver: bridge
+   ipam:
+     driver: default
+     config:
+       - subnet:  {{ phpmyadmin_network }}
