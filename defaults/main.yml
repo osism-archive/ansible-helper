@@ -40,7 +40,7 @@ cephclient_network: 172.31.100.0/28
 openstackclient_configuration_directory: /opt/openstackclient/configuration
 openstackclient_docker_compose_directory: /opt/openstackclient
 
-openstackclient_tag: queens
+openstackclient_tag: stein
 openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_tag }}"
 
 openstackclient_container_name: openstackclient_openstackclient_1
