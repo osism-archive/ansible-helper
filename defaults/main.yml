@@ -57,7 +57,7 @@ phpmyadmin_host: 127.0.0.1
 phpmyadmin_database_host: 127.0.0.1
 phpmyadmin_port: 8110
 
-phpmyadmin_tag: 4.7
+phpmyadmin_tag: 4.9
 phpmyadmin_image: "{{ docker_registry }}/phpmyadmin/phpmyadmin:{{ phpmyadmin_tag }}"
 
 phpmyadmin_groupname: helper
