@@ -7,6 +7,7 @@ services:
     entrypoint: sleep infinity
     volumes:
       - "{{ openstackclient_configuration_directory }}:/configuration:ro"
+      - "{{ openstackclient_data_directory }}:/data:ro"
       - "/etc/hosts:/etc/hosts:ro"
 
 networks:
