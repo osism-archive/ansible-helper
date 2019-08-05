@@ -7,6 +7,7 @@ services:
     entrypoint: sleep infinity
     volumes:
       - "{{ cephclient_configuration_directory }}:/etc/ceph:rw"
+      - "{{ cephclient_data_directory }}:/data:rw"
       - "/etc/hosts:/etc/hosts:ro"
 
 networks:

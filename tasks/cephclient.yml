@@ -9,6 +9,7 @@
   become: true
   with_items:
     - "{{ cephclient_configuration_directory }}"
+    - "{{ cephclient_data_directory }}"
     - "{{ cephclient_docker_compose_directory }}"
 
 - name: cephclient - copy configuration files

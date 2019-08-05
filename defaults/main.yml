@@ -20,6 +20,7 @@ docker_registry: index.docker.io
 # cephclient
 
 cephclient_configuration_directory: /opt/cephclient/configuration
+cephclient_data_directory: /opt/cephclient/data
 cephclient_docker_compose_directory: /opt/cephclient
 
 cephclient_tag: nautilus
