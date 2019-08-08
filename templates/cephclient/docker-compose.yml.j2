@@ -4,7 +4,7 @@ services:
   cephclient:
     restart: unless-stopped
     image: "{{ cephclient_image }}"
-    entrypoint: sleep infinity
+    command: sleep infinity
     volumes:
       - "{{ cephclient_configuration_directory }}:/etc/ceph:rw"
       - "{{ cephclient_data_directory }}:/data:rw"

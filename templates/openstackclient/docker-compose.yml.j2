@@ -4,7 +4,7 @@ services:
   openstackclient:
     restart: unless-stopped
     image: "{{ openstackclient_image }}"
-    entrypoint: sleep infinity
+    command: sleep infinity
     volumes:
       - "{{ openstackclient_configuration_directory }}:/configuration:ro"
       - "{{ openstackclient_data_directory }}:/data:ro"
