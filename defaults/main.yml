@@ -85,10 +85,10 @@ rally_nginx_port: 8090
 rally_tag: 0.9
 rally_image: "{{ docker_registry }}/osism/rally:{{ rally_tag }}"
 
-mariadb_tag: 10.3.0
+mariadb_tag: 10.4
 mariadb_image: "{{ docker_registry }}/mariadb:{{ mariadb_tag }}"
 
-nginx_tag: 1.13
+nginx_tag: 1.17
 nginx_image: "{{ docker_registry }}/nginx:{{ nginx_tag }}"
 
 rally_groupname: helper
