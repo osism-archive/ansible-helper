@@ -42,7 +42,7 @@ openstackclient_configuration_directory: /opt/openstackclient/configuration
 openstackclient_data_directory: /opt/openstackclient/data
 openstackclient_docker_compose_directory: /opt/openstackclient
 
-openstackclient_tag: stein
+openstackclient_tag: train
 openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_tag }}"
 
 openstackclient_container_name: openstackclient_openstackclient_1
