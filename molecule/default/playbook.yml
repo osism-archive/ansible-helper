@@ -13,12 +13,12 @@
     configure_rally: yes
     configure_sshconfig: yes
 
-    adminer_groupname: all
-    cephclient_groupname: all
-    openstackclient_groupname: all
-    phpmyadmin_groupname: all
-    rally_groupname: all
-    sshconfig_groupname: all
+    adminer_groupname: ungrouped
+    cephclient_groupname: ungrouped
+    openstackclient_groupname: ungrouped
+    phpmyadmin_groupname: ungrouped
+    rungroupedy_groupname: ungrouped
+    sshconfig_groupname: ungrouped
 
   roles:
     - role: ansible-helper
