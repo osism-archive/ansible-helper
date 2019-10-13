@@ -1,4 +1,5 @@
 ---
+configure_adminer: no
 configure_cephclient: no
 configure_openstackclient: no
 configure_phpmyadmin: no
@@ -15,6 +16,22 @@ operator_group: "{{ operator_user }}"
 # docker
 
 docker_registry: index.docker.io
+
+##########################
+# adminer
+
+adminer_docker_compose_directory: /opt/adminer
+
+adminer_host: 127.0.0.1
+adminer_database_host: 127.0.0.1
+adminer_port: 8111
+
+adminer_tag: 4.7
+adminer_image: "{{ docker_registry }}/library/adminer:{{ adminer_tag }}"
+
+adminer_groupname: helper
+
+adminer_network: 172.31.100.64/28
 
 ##########################
 # cephclient

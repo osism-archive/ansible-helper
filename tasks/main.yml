@@ -1,4 +1,11 @@
 ---
+- name: adminer - include tasks
+  include: adminer.yml
+  tags: adminer
+  when:
+    - configure_adminer|bool
+    - adminer_groupname in group_names
+
 - name: cephclient - include tasks
   include: cephclient.yml
   tags: cephclient
@@ -6,19 +13,19 @@
     - configure_cephclient|bool
     - cephclient_groupname in group_names
 
-- name: phpmyadmin - include tasks
-  include: phpmyadmin.yml
-  tags: phpmyadmin
-  when:
-    - configure_phpmyadmin|bool
-    - phpmyadmin_groupname in group_names
-
 - name: openstackclient - include tasks
   include: openstackclient.yml
   tags: openstackclient
   when:
     - configure_openstackclient|bool
     - openstackclient_groupname in group_names
+
+- name: phpmyadmin - include tasks
+  include: phpmyadmin.yml
+  tags: phpmyadmin
+  when:
+    - configure_phpmyadmin|bool
+    - phpmyadmin_groupname in group_names
 
 - name: rally - include tasks
   include: rally.yml

@@ -6,12 +6,14 @@
   vars:
     operator_user: ubuntu
 
+    configure_adminer: yes
     configure_cephclient: yes
     configure_openstackclient: yes
     configure_phpmyadmin: yes
     configure_rally: yes
     configure_sshconfig: yes
 
+    adminer_groupname: all
     cephclient_groupname: all
     openstackclient_groupname: all
     phpmyadmin_groupname: all
