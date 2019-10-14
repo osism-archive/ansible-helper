@@ -4,7 +4,7 @@
   connection: paramiko
 
   vars:
-    operator_user: ubuntu
+    ansible_ssh_user: dragon
 
     configure_adminer: yes
     configure_cephclient: yes

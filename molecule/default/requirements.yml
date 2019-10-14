@@ -1,8 +1,8 @@
 ---
-- name: osism.docker
-  src: git+https://github.com/osism/ansible-docker.git
+- name: osism.operator
+  src: git+https://github.com/osism/ansible-operator.git
   version: master
 
-- name: osism.configuration
-  src: git+https://github.com/osism/ansible-configuration.git
+- name: osism.docker
+  src: git+https://github.com/osism/ansible-docker.git
   version: master
