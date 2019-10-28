@@ -51,7 +51,7 @@
 
 - name: cephclient - copy wrapper scripts
   template:
-    src: "wrapper/{{ item }}.j2"
+    src: "wrapper/ceph/{{ item }}.j2"
     dest: "/usr/local/bin/{{ item }}"
     mode: 0755
     owner: "{{ operator_user }}"
