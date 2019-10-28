@@ -61,5 +61,6 @@
     - ceph-authtool
     - crushtool
     - rados
+    - radosgw-admin
     - rbd
   become: true
