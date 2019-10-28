@@ -59,6 +59,7 @@
   with_items:
     - ceph
     - ceph-authtool
+    - crushtool
     - rados
     - rbd
   become: true
