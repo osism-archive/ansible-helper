@@ -37,7 +37,16 @@
     mode: 0755
     owner: "{{ operator_user }}"
     group: "{{ operator_group }}"
+  become: true
   with_items:
     - openstack
     - ospurge
+
+- name: openstackclient - copy bash completion scripts
+  command: "docker cp {{ openstackclient_container_name }}:/usr/share/bash-completion/completions/{{ item }} /etc/bash_completion.d/{{ item }}"
+  register: result
+  changed_when: false
+  failed_when: result.rc != 0
   become: true
+  with_items:
+    - openstack

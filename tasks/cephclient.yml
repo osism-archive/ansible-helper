@@ -56,6 +56,7 @@
     mode: 0755
     owner: "{{ operator_user }}"
     group: "{{ operator_group }}"
+  become: true
   with_items:
     - ceph
     - ceph-authtool
@@ -63,4 +64,15 @@
     - rados
     - radosgw-admin
     - rbd
+
+- name: cephclient - copy bash completion scripts
+  command: "docker cp {{ cephclient_container_name }}:/etc/bash_completion.d/{{ item }} /etc/bash_completion.d/{{ item }}"
+  register: result
+  changed_when: false
+  failed_when: result.rc != 0
   become: true
+  with_items:
+    - ceph
+    - rados
+    - radosgw-admin
+    - rbd
