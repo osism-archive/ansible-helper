@@ -42,11 +42,9 @@
     - openstack
     - ospurge
 
-- name: openstackclient - copy bash completion scripts
-  command: "docker cp {{ openstackclient_container_name }}:/usr/share/bash-completion/completions/{{ item }} /etc/bash_completion.d/{{ item }}"
+- name: openstackclient - copy bash completion script
+  command: "docker cp {{ openstackclient_container_name }}:/osc.bash_completion /etc/bash_completion.d/openstack"
   register: result
   changed_when: false
   failed_when: result.rc != 0
   become: true
-  with_items:
-    - openstack
