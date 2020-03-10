@@ -10,9 +10,11 @@ if [[ -t 0 ]]; then
 fi
 
 if [[ $INTERACTIVE == "true" ]]; then
-
     PARAMETERS="$PARAMETERS -it"
+fi
 
+if [[ -n "$OS_CLOUD" ]]; then
+    PARAMETERS="$PARAMETERS --env OS_CLOUD=$OS_CLOUD"
 fi
 
 docker exec $PARAMETERS {{ openstackclient_container_name }} openstack "$@"
