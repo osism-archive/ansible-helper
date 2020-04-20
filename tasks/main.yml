@@ -1,11 +1,9 @@
 ---
 - name: Install required packages
-  apt:
-    name: "{{ item }}"
+  package:
+    name: bash-completion
     state: present
   become: true
-  with_items:
-    - bash-completion
 
 - name: adminer - include tasks
   include: adminer.yml
