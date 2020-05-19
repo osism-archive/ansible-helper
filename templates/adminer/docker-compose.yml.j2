@@ -1,7 +1,9 @@
 ---
 version: '3'
+
 services:
   adminer:
+    container_name: adminer
     restart: unless-stopped
     image: "{{ adminer_image }}"
     environment:
