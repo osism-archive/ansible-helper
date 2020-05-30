@@ -1,7 +1,5 @@
 ---
 configure_adminer: no
-configure_cephclient: no
-configure_openstackclient: no
 configure_phpmyadmin: no
 configure_rally: no
 configure_sshconfig: no
@@ -32,40 +30,6 @@ adminer_image: "{{ docker_registry }}/library/adminer:{{ adminer_tag }}"
 adminer_groupname: helper
 
 adminer_network: 172.31.100.64/28
-
-##########################
-# cephclient
-
-cephclient_configuration_directory: /opt/cephclient/configuration
-cephclient_data_directory: /opt/cephclient/data
-cephclient_docker_compose_directory: /opt/cephclient
-
-cephclient_tag: nautilus
-cephclient_image: "{{ docker_registry }}/osism/cephclient:{{ cephclient_tag }}"
-
-cephclient_mons: []
-cephclient_keyring: ""
-cephclient_keyring_name: client.admin
-
-cephclient_container_name: cephclient_cephclient_1
-cephclient_groupname: helper
-
-cephclient_network: 172.31.100.0/28
-
-##########################
-# openstackclient
-
-openstackclient_configuration_directory: /opt/openstackclient/configuration
-openstackclient_data_directory: /opt/openstackclient/data
-openstackclient_docker_compose_directory: /opt/openstackclient
-
-openstackclient_tag: train
-openstackclient_image: "{{ docker_registry }}/osism/openstackclient:{{ openstackclient_tag }}"
-
-openstackclient_container_name: openstackclient_openstackclient_1
-openstackclient_groupname: helper
-
-openstackclient_network: 172.31.100.16/28
 
 ##########################
 # phpmyadmin

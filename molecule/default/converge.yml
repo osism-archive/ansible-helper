@@ -7,15 +7,11 @@
     ansible_ssh_user: dragon
 
     configure_adminer: yes
-    configure_cephclient: yes
-    configure_openstackclient: yes
     configure_phpmyadmin: yes
     configure_rally: yes
     configure_sshconfig: yes
 
     adminer_groupname: ungrouped
-    cephclient_groupname: ungrouped
-    openstackclient_groupname: ungrouped
     phpmyadmin_groupname: ungrouped
     rungroupedy_groupname: ungrouped
     sshconfig_groupname: ungrouped
