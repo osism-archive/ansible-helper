@@ -11,7 +11,7 @@
     group: "{{ operator_group }}"
     mode: 0755
   become: true
-  with_items:
+  loop:
     - "{{ rally_configuration_directory }}"
     - "{{ rally_docker_compose_directory }}"
     - "{{ rally_tests_directory }}"
@@ -23,7 +23,7 @@
     mode: 0644
     owner: "{{ operator_user }}"
     group: "{{ operator_group }}"
-  with_items:
+  loop:
     - src: rally/rally.conf.j2
       dest: "{{ rally_configuration_directory }}/rally.conf"
     - src: rally/nginx.conf.j2
@@ -67,6 +67,6 @@
     mode: 0755
     owner: "{{ operator_user }}"
     group: "{{ operator_group }}"
-  with_items:
+  loop:
     - rally
   become: true

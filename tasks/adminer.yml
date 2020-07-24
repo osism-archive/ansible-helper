@@ -11,7 +11,7 @@
     group: "{{ operator_group }}"
     mode: 0755
   become: true
-  with_items:
+  loop:
     - "{{ adminer_docker_compose_directory }}"
 
 - name: adminer - copy docker-compose.yml file
