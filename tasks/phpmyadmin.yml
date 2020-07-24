@@ -11,7 +11,7 @@
     group: "{{ operator_group }}"
     mode: 0755
   become: true
-  with_items:
+  loop:
     - "{{ phpmyadmin_docker_compose_directory }}"
 
 - name: phpmyadmin - copy docker-compose.yml file
