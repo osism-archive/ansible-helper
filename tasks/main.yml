@@ -12,13 +12,6 @@
     - configure_adminer|bool
     - adminer_groupname in group_names
 
-- name: phpmyadmin - include tasks
-  include: phpmyadmin.yml
-  tags: phpmyadmin
-  when:
-    - configure_phpmyadmin|bool
-    - phpmyadmin_groupname in group_names
-
 - name: rally - include tasks
   include: rally.yml
   tags: rally
@@ -32,3 +25,9 @@
   when:
     - configure_sshconfig|bool
     - sshconfig_groupname in group_names
+
+- name: phpmyadmin - include tasks
+  include: phpmyadmin.yml
+  tags: phpmyadmin
+  when:
+    - configure_phpmyadmin|default(false)|bool
