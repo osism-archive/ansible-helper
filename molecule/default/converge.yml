@@ -12,7 +12,6 @@
     configure_sshconfig: yes
 
     adminer_groupname: ungrouped
-    phpmyadmin_groupname: ungrouped
     rungroupedy_groupname: ungrouped
     sshconfig_groupname: ungrouped
 
