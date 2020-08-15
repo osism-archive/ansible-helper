@@ -19,15 +19,14 @@
     - configure_rally|bool
     - rally_groupname in group_names
 
-- name: sshconfig - include tasks
-  include: sshconfig.yml
-  tags: sshconfig
-  when:
-    - configure_sshconfig|bool
-    - sshconfig_groupname in group_names
-
 - name: phpmyadmin - include tasks
   include: phpmyadmin.yml
   tags: phpmyadmin
   when:
     - configure_phpmyadmin|default(false)|bool
+
+- name: sshconfig - include tasks
+  include: sshconfig.yml
+  tags: sshconfig
+  when:
+    - configure_sshconfig|default(false)|bool

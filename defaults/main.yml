@@ -1,7 +1,6 @@
 ---
 configure_adminer: no
 configure_rally: no
-configure_sshconfig: no
 
 ##########################
 # operator user
@@ -58,15 +57,3 @@ nginx_image: "{{ docker_registry }}/nginx:{{ nginx_tag }}"
 rally_groupname: helper
 
 rally_network: 172.31.100.48/28
-
-##########################
-# sshconfig
-
-sshconfig_destination: "/home/{{ operator_user }}/.ssh"
-sshconfig_group_name: all
-sshconfig_order: 20
-sshconfig_port: 22
-sshconfig_private_key_file: /opt/ansible/secrets/id_rsa.operator
-sshconfig_user: "{{ operator_user }}"
-
-sshconfig_groupname: helper
