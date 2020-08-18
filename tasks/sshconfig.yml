@@ -1,5 +1,0 @@
----
-- name: sshconfig has been moved
-  fail:
-    msg: "run 'osism-manager sshconfig' to deploy osism.commons.sshconfig"
-  ignore_errors: true

@@ -1,5 +1,0 @@
----
-- name: phpmyadmin has been moved
-  fail:
-    msg: "run 'osism-infrastructure phpmyadmin' to deploy osism.services.phpmyadmin"
-  ignore_errors: true
